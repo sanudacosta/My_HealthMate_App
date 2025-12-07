@@ -228,19 +228,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  // Helper function to build progress bars for Steps, Calories, and Water Intake
   Widget _buildProgressBar(String title, dynamic value, double max) {
-    // Ensure the value is a double for consistent comparison in progress calculation
     double progress = 0.0;
-
-    // If value is an int (e.g., steps), we need to convert it to a double
     if (value is int) {
       progress = value / max;
     } else if (value is double) {
       progress = value / max;
     }
 
-    // Limit progress to a max of 1.0 (100%)
     progress = progress > 1.0 ? 1.0 : progress;
 
     return Column(

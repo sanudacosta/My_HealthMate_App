@@ -67,13 +67,10 @@ class HealthRecordRepository {
   }
 
   Future<void> update(HealthRecord record) async {
-    // Your database update logic goes here.
-    // Example with SQLite:
-    final db = await database; // Assuming `database` is your DB instance
+    final db = await database;
     await db.update(
       'health_records', // Table name
-      record
-          .toMap(), // Convert your HealthRecord to a Map (you need to implement `toMap()`)
+      record.toMap(),
       where: 'id = ?',
       whereArgs: [record.id], // Specify the ID to update
     );

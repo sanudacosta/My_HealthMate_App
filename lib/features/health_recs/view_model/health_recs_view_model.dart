@@ -57,7 +57,6 @@ class HealthRecordViewModel extends ChangeNotifier {
       loading = true;
       notifyListeners();
       await _repo.update(record); // Ensure repo has an update method
-      // Update the record in-memory as well
       int index = records.indexWhere((r) => r.id == record.id);
       if (index != -1) {
         records[index] = record; // Replace the old record with the updated one
