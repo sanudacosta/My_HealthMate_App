@@ -29,13 +29,8 @@ class HealthRecordViewModel extends ChangeNotifier {
       loading = true;
       notifyListeners();
       await _repo.save(record); // ensure repo.save returns id or void
-      // If repository returns id or saved item, handle accordingly.
-      // Insert at start so dashboard shows most recent first
       records.insert(0, record);
-      // Optionally: if repo provides id, set it: record.id = savedId;
-      // If you prefer full DB truth, you can call await fetchRecords(); instead of insert.
     } catch (e) {
-      // handle/log
     } finally {
       loading = false;
       notifyListeners();

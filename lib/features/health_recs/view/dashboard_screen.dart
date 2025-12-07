@@ -13,6 +13,8 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  DateTime? _selectedDate;
+
   @override
   void initState() {
     super.initState();
@@ -32,8 +34,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
-            onPressed: () {
-              // You can add a search function here
+            onPressed: () async {
+              // Open the date picker to allow user to select a date
+              DateTime? pickedDate = await _selectDate(context);
+              if (pickedDate != null) {
+                setState(() {
+                  _selectedDate = pickedDate;
+                });
+              }
             },
           ),
         ],
@@ -43,17 +51,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
           if (vm.loading) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (vm.records.isEmpty) {
+
+          // Filter records if a date is selected
+          List filteredRecords = _selectedDate != null
+              ? vm.records.where((record) {
+                  DateTime recordDate = DateTime.parse(record.createdAt);
+                  return recordDate.year == _selectedDate!.year &&
+                      recordDate.month == _selectedDate!.month &&
+                      recordDate.day == _selectedDate!.day;
+                }).toList()
+              : vm.records;
+
+          if (filteredRecords.isEmpty) {
             return const Center(
               child: Text(
-                'No records yet',
+                'No records available for the selected date',
                 style: TextStyle(fontSize: 18, color: Colors.grey),
               ),
             );
           }
 
-          // Get the latest record (most recent)
-          final latestRecord = vm.records.isNotEmpty ? vm.records.first : null;
+          // Get the latest filtered record
+          final latestRecord = filteredRecords.isNotEmpty
+              ? filteredRecords.first
+              : null;
 
           if (latestRecord == null) {
             return const Center(child: Text('No records available.'));
@@ -167,6 +188,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ),
     );
+  }
+
+  // Show date picker to select a date
+  Future<DateTime?> _selectDate(BuildContext context) async {
+    final DateTime currentDate = DateTime.now();
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: currentDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    return pickedDate;
   }
 
   Widget _buildDataColumn(String title, dynamic value) {

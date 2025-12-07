@@ -64,7 +64,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
               TextFormField(
                 controller: _dateController,
                 decoration: InputDecoration(
-                  labelText: 'Date',
+                  labelText: 'Date 📅',
                   hintText: 'Select date',
                   prefixIcon: const Icon(Icons.calendar_today),
                   border: OutlineInputBorder(
@@ -87,7 +87,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                 controller: _stepsController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: 'Steps',
+                  labelText: 'Steps 👣',
                   hintText: 'Enter number of steps',
                   prefixIcon: const Icon(Icons.directions_walk),
                   border: OutlineInputBorder(
@@ -110,7 +110,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                   decimal: true,
                 ),
                 decoration: InputDecoration(
-                  labelText: 'Calories',
+                  labelText: 'Calories 🔥',
                   hintText: 'Enter number of calories burned',
                   prefixIcon: const Icon(Icons.local_fire_department),
                   border: OutlineInputBorder(
@@ -131,7 +131,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                 controller: _waterController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: 'Water Intake (ml)',
+                  labelText: 'Water Intake (ml) 💧',
                   hintText: 'Enter water intake in ml',
                   prefixIcon: const Icon(Icons.local_drink),
                   border: OutlineInputBorder(
@@ -174,7 +174,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                   ),
                 ),
                 child: const Text(
-                  'Save Record',
+                  'Save Record✔️',
                   style: TextStyle(fontSize: 16),
                 ),
               ),
